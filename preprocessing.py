@@ -15,9 +15,11 @@ def parse(xmlfile):
                 "OrgQuestion[@ORGQ_ID='%s']/Thread" % orgquestion.attrib["ORGQ_ID"]):
             relquestion = {}
             for attrib in (
-                    "RELQ_ID", "RELQ_RANKING_ORDER", "RELQ_CATEGORY", "RELQ_DATE",
+                    "RELQ_ID", "RELQ_CATEGORY", "RELQ_DATE",
                     "RELQ_USERID", "RELQ_USERNAME", "RELQ_RELEVANCE2ORGQ"):
                 relquestion[attrib] = thread.find("RelQuestion").attrib[attrib]
+            relquestion["RELQ_RANKING_ORDER"] = \
+                int(thread.find("RelQuestion").attrib["RELQ_RANKING_ORDER"])
             relquestion["RelQSubject"] = thread.find("RelQuestion/RelQSubject").text or ""
             relquestion["RelQBody"] = thread.find("RelQuestion/RelQBody").text or ""
 
